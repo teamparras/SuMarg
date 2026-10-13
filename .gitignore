@@ -1,0 +1,22 @@
+# Python caches
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+env/
+
+# SUMO Simulation Outputs
+tripinfos.xml
+edgeData.xml
+stats.xml
+sumosnap.png
+
+# Data and Models
+*.xlsx
+*.pkl
+*.h5
+
+# OS generated files
+.DS_Store
+Thumbs.db
