@@ -1,0 +1,9 @@
+traci
+sumolib
+numpy
+pandas
+scikit-learn
+lightgbm
+joblib
+fastapi
+uvicorn
