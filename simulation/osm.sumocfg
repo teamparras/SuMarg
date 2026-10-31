@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-13T08:29:47.540456+05:30 by Eclipse SUMO sumo 1.27.1
+<!-- generated on 2026-10-31T11:36:15.176340+05:30 by Eclipse SUMO sumo 1.27.1
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -8,13 +8,10 @@
     <input>
         <net-file value="osm.net.xml.gz"/>
         <route-files value="osm.passenger.trips.xml"/>
-        <additional-files value="osm.poly.xml.gz,output.add.xml"/>
+        <additional-files value="osm.poly.xml.gz"/>
     </input>
 
-    <output>
-        <tripinfo-output value="tripinfos.xml"/>
-        <statistic-output value="stats.xml"/>
-    </output>
+  
 
     <processing>
         <ignore-route-errors value="true"/>
