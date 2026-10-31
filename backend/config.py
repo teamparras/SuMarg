@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
 # Simulation Paths
-SIM_CONFIG_PATH = ROOT_DIR / "simulation" / "sim_config.sumocfg"
+SIM_CONFIG_PATH = ROOT_DIR / "simulation" / "osm.sumocfg"
 
 # ML Engine Paths
 DATASET_CSV_PATH = ROOT_DIR / "ml_engine" / "datasets" / "braking_data.csv"
