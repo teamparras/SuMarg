@@ -1,0 +1,85 @@
+import sys
+from pathlib import Path
+from typing import Dict, Any, Optional
+import traci
+from traci_core.config import ROOT_DIR, MAX_SPEED
+
+class SensorUtils:
+  
+    @staticmethod
+    def get_vehicle_telemetry(veh_id: str) -> Optional[Dict[str, float]]:
+
+        try:
+            speed = traci.vehicle.getSpeed(veh_id)
+            acceleration = traci.vehicle.getAcceleration(veh_id)
+            lane_id = traci.vehicle.getLaneID(veh_id)
+            speed_limit = traci.lane.getMaxSpeed(lane_id) if lane_id else MAX_SPEED
+
+            return {
+                "speed": float(speed),
+                "acceleration": float(acceleration),
+                "speed_limit": float(speed_limit)
+            }
+        except traci.TraCIException:
+            return None
+
+    @staticmethod
+    def detect_leader(veh_id: str, radar_range: float = 100.0, current_speed: Optional[float] = None) -> Dict[str, Any]:
+        
+        try:
+            if current_speed is None:
+                current_speed = traci.vehicle.getSpeed(veh_id)
+
+            lane_id = traci.vehicle.getLaneID(veh_id)
+            speed_limit = traci.lane.getMaxSpeed(lane_id) if lane_id else MAX_SPEED
+
+            leader_info = traci.vehicle.getLeader(veh_id, radar_range)
+
+            if leader_info is not None:
+                leader_id, gap = leader_info
+                leader_speed = traci.vehicle.getSpeed(leader_id)
+                relative_speed = current_speed - leader_speed
+
+                if relative_speed > 0.1:
+                    ttc = min(99.0, max(0.1, gap / relative_speed))
+                else:
+                    ttc = 99.0  # Safe
+
+                return {
+                    "has_leader": True,
+                    "leader_id": leader_id,
+                    "gap": round(float(gap), 2),
+                    "leader_speed": round(float(leader_speed), 2),
+                    "relative_speed": round(float(relative_speed), 2),
+                    "ttc": round(float(ttc), 2)
+                }
+
+        except traci.TraCIException:
+            pass
+
+        return {
+            "has_leader": False,
+            "leader_id": None,
+            "gap": float(radar_range),
+            "leader_speed": float(speed_limit),
+            "relative_speed": 0.0,
+            "ttc": 99.0
+        }
+
+    @staticmethod
+    def get_features_for_ml(veh_id: str, radar_range: float = 100.0) -> Optional[Dict[str, float]]:
+
+        telemetry = SensorUtils.get_vehicle_telemetry(veh_id)
+        if not telemetry:
+            return None
+
+        radar = SensorUtils.detect_leader(veh_id, radar_range=radar_range, current_speed=telemetry["speed"])
+
+        return {
+            "vehicle_speed": round(telemetry["speed"], 2),
+            "leader_speed": round(radar["leader_speed"], 2),
+            "leader_distance": round(radar["gap"], 2),
+            "relative_speed": round(radar["relative_speed"], 2),
+            "time_to_collision": round(radar["ttc"], 2),
+            "speed_limit": round(telemetry["speed_limit"], 2)
+        }

@@ -1,0 +1,18 @@
+pandas
+numpy
+
+scikit-learn
+xgboost
+lightgbm
+joblib
+
+traci
+sumolib
+
+matplotlib
+seaborn
+
+pyyaml
+
+
+-e .

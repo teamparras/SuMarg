@@ -1,0 +1,28 @@
+{
+    "best_model": "Random Forest",
+    "r2_score": 0.9565178246510525,
+    "rmse": 1.1245,
+    "mae": 0.7838,
+    "all_models": {
+        "Random Forest": {
+            "r2_score": 0.9565178246510525,
+            "rmse": 1.1245,
+            "mae": 0.7838
+        },
+        "Gradient Boosting": {
+            "r2_score": 0.9531626164520433,
+            "rmse": 1.1671,
+            "mae": 0.8213
+        },
+        "Decision Tree": {
+            "r2_score": 0.9476436748931963,
+            "rmse": 1.2339,
+            "mae": 0.8409
+        },
+        "Linear Regression": {
+            "r2_score": 0.6804127584887563,
+            "rmse": 3.0485,
+            "mae": 2.3347
+        }
+    }
+}

@@ -1,0 +1,19 @@
+COLUMNS:
+  vehicle_speed: float64
+  leader_speed: float64
+  leader_distance: float64
+  relative_speed: float64
+  time_to_collision: float64
+  speed_limit: float64
+  v2v_emergency_flag: int64   
+  target_speed: float64
+
+NUMERICAL_COLUMNS:
+  - vehicle_speed
+  - leader_speed
+  - leader_distance
+  - relative_speed
+  - time_to_collision
+  - speed_limit
+  - v2v_emergency_flag        
+TARGET_COLUMN: target_speed
